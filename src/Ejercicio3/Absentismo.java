@@ -24,11 +24,20 @@ public class Absentismo {
         bajasJ = bajasDiaria(ausentes, 3);
         bajasV = bajasDiaria(ausentes, 4);
         devolverDatosSem();
-        System.out.println("La cantidad de trabajadores que han faltado esta semana es de: " + devolverTotAusentes(ausentes));
+        System.out.println(System.lineSeparator());
+
+        System.out.println("La cantidad de trabajadores que han faltado esta semana es de: "
+                + devolverTotAusentes(ausentes)+ System.lineSeparator()+ " la media de bajas semanal es: "+
+                hallarMediaSemanal(totalAusentes));
+        devolverMedDep();
 
     }
 
-    //el primer hueco pertenece a los dias de la semana [7] y el segundo a los departamentos existentes [5]
+
+    // Declaro los atributos estaticos, para poder usarlos en el main, ya que no he creado una clase aparte.
+
+
+
 
     static int[][] ausentes = new int[5][5];
     static int bajasDep1;
@@ -43,6 +52,11 @@ public class Absentismo {
     static int bajasV;
     static int totalAusentes = 0;
     static int ausentesDiarios = 0;
+
+    /**
+     *  Genera un numero de bajas de forma aleatoria de 0 a 5 y las imprime por pantalla junto con el numero del departamento
+     */
+
 
     public static void generarBajas(int[][] ausentes) {
         int k = 0;
@@ -60,10 +74,11 @@ public class Absentismo {
     }
 
     /**
-     * Metodo para conocer las bajas semanales por departamento, contabilizando que como maximo hay 5 empleados por dep.
-     *
+     * Metodo para generar las bajas semanales por departamentos, es decir dandole el valor de la columna que se quiere
+     * sumar por parametro junto con el array generado aleatoriamente
      * @param ausentes
-     * @return el total de las personas que estan de baja esa semana
+     * @param col
+     * @return devuelve el valor de la suma de las bajas por departamento
      */
     public static int bajasSemanalesDep(int[][] ausentes, int col) {
 
@@ -75,6 +90,15 @@ public class Absentismo {
         return bajasPorDep;
     }
 
+    /**
+     * Metodo para sumar las bajas semanales indicando por paramentros el numero de la fila que se quiere sumar junto con el array
+     * generado aleatoriamente
+     * @param ausentes
+     * @param fila
+     * @return devuelve el valor de la suma solicitada,
+     * dentro del metodo he inicializado una variable local, ya que si la hacia global y estatica, lo que hacia era sumar todas las filas
+     * por lo que daba valores erroneos, asi solo devuelve lo pedido
+     */
     public static int bajasDiaria(int[][] ausentes, int fila) {
 
         int bajasDiarias=0;
@@ -84,11 +108,40 @@ public class Absentismo {
         return bajasDiarias;
     }
 
+    /**
+     * Metodo para hallar la media de las bajas semanales en la empresa
+     * @param totalAusentes
+     * @return devuelve la dicision del total de bajas entre 5 que son el total de dias trabajados
+     */
+    public static int hallarMediaSemanal(int totalAusentes) {
+
+        return totalAusentes / 5;
+    }
+
+    /**
+     * Metodo para devolver la media de bajas semanales por departamento aproximados ya que trabajamos con enteros
+     */
+    public static void devolverMedDep(){
+        System.out.println("La media de bajas semanales por departamentos es: " +System.lineSeparator() +
+                "Dpto 1= " + bajasDep1/5 +System.lineSeparator() +"Dpto 2= " + bajasDep2/5 + System.lineSeparator() +
+                "Dpto 3= " + bajasDep3/5 + System.lineSeparator() +"Dpto 4= " + bajasDep4/5 +System.lineSeparator() +
+                "Dpto 5= " + bajasDep5/5);
+    }
+
+    /**
+     * a traves de los contadores creados para contabilizar la cantidad de ausencias diarias, se hace una suma total que
+     * usaremos para conocer la cantidad total de personas que faltan a la semana
+     * @param ausentes
+     * @return
+     */
     public static int devolverTotAusentes(int[][] ausentes) {
         totalAusentes = totalAusentes + ausentesDiarios;
         return totalAusentes;
     }
 
+    /**
+     * Metodo para sacar por consola los datos almacenados por departamentos
+     */
     public static void devolverDatosDep(){
         System.out.println("Las bajas semanales por departamentos son:" +System.lineSeparator() +
                 "Dpto 1= " + bajasDep1 +System.lineSeparator() +"Dpto 2= " + bajasDep2 + System.lineSeparator() +
@@ -96,6 +149,10 @@ public class Absentismo {
                 "Dpto 5= " + bajasDep5);
 
     }
+
+    /**
+     * Metodo para imprimir por consola los datos almacenados de las bajas diarias
+     */
     public static void devolverDatosSem(){
         System.out.println("El total de ausentes diarios son:" +System.lineSeparator() +
                 "Lunes: " + bajasL + System.lineSeparator() +"Martes: " + bajasM +System.lineSeparator() +
@@ -103,5 +160,12 @@ public class Absentismo {
 
     }
 
+    /**
+     * Metodo que deberia pintar mediante un diagrama de barras el porcentaje de bajas
+     * @param ausentes
+     */
+    public static void pintarDiagrama(int[][] ausentes){
+
+    }
 
 }
